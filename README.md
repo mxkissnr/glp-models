@@ -34,3 +34,7 @@ quantize_dynamic("isnet-general-use.onnx", "isnet-general-use-int8.onnx", weight
 ## Licence
 
 All weights are under the Apache License 2.0, see `LICENSE` and `NOTICE`.
+
+## Security
+
+Every release asset is checked in CI on each push, each release and weekly: checksum, the official ONNX checker, an operator allowlist and a load test in onnxruntime. Details and how to report a problem: `SECURITY.md`.
