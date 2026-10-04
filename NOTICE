@@ -1,0 +1,22 @@
+glp-models
+Copyright 2026 mxkissnr
+
+This repository redistributes machine-learning model weights for the
+Gaggiuino Local Profiler (GLP) on-device bean photo cut-out feature.
+
+isnet-general-use-int8.onnx
+  Derived from IS-Net "isnet-general-use" (DIS, Highly Accurate Dichotomous
+  Image Segmentation), Copyright Xuebin Qin et al., Apache License 2.0,
+  https://github.com/xuebinqin/DIS
+  ONNX export as published by rembg (MIT), https://github.com/danielgatis/rembg
+  Modification: dynamic int8 weight quantization (see README.md).
+
+slimsam-77-uniform/vision_encoder_quantized.onnx
+slimsam-77-uniform/prompt_encoder_mask_decoder_quantized.onnx
+  SlimSAM, Copyright Zigeng Chen et al., Apache License 2.0,
+  https://github.com/czg1225/SlimSAM
+  Based on Segment Anything, Copyright Meta Platforms, Inc., Apache License 2.0,
+  https://github.com/facebookresearch/segment-anything
+  ONNX export by Xenova (Apache License 2.0),
+  https://huggingface.co/Xenova/slimsam-77-uniform
+  Redistributed unmodified.
