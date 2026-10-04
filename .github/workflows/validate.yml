@@ -1,0 +1,45 @@
+name: Validate models
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [published, edited]
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate release assets
+    # Gitea Actions also auto-detects .github/workflows — skip there, GitHub-only.
+    if: github.server_url == 'https://github.com'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Install checker
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --quiet -r requirements.txt
+
+      - name: Download and validate every release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tags=$(gh release list -R "$GITHUB_REPOSITORY" --json tagName -q '.[].tagName')
+          [ -n "$tags" ] || { echo "no releases yet"; exit 0; }
+          for tag in $tags; do
+            echo "::group::$tag"
+            gh release download "$tag" -R "$GITHUB_REPOSITORY" -D "assets/$tag"
+            .venv/bin/python scripts/validate.py "assets/$tag"
+            echo "::endgroup::"
+          done
