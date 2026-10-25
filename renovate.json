@@ -3,6 +3,8 @@
   "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "schedule": ["before 6am on monday"],
   "semanticCommits": "enabled",
+  "pip-compile": { "managerFilePatterns": ["/(^|/)requirements\\.txt$/"] },
+  "pip_requirements": { "enabled": false },
   "vulnerabilityAlerts": {
     "enabled": true,
     "schedule": ["at any time"],
